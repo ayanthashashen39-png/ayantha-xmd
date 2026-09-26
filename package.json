@@ -1,0 +1,19 @@
+{
+  "name": "ayantha-xmd-allinone",
+  "version": "1.0.0",
+  "description": "Ayantha x MD — Pair site + Bot + Admin (single host)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "npm:@dnuzi/baileys",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "mongoose": "^8.8.0",
+    "pino": "^8.21.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
