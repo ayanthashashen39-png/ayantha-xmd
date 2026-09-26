@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#020617" />
+  <title>Dashboard — Ayantha x MD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --g: #22c55e; --g2: #16a34a; --g3: #4ade80;
+      --bg: #020617; --card: rgba(15,23,42,0.75); --stroke: rgba(34,197,94,0.28);
+      --text: #f8fafc; --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; font-family: 'Outfit', system-ui, sans-serif; color: var(--text);
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(34,197,94,0.18), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(16,185,129,0.1), transparent);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; position: sticky; top: 0; z-index: 30;
+      background: rgba(2,6,23,0.75); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(34,197,94,0.18);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--g); object-fit: cover; }
+    .brand span {
+      background: linear-gradient(135deg, #4ade80, #86efac);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: 0.78rem; font-weight: 500;
+      padding: 7px 14px; border-radius: 999px;
+    }
+    nav a.active {
+      color: #052e16; background: linear-gradient(135deg, var(--g), var(--g2));
+      box-shadow: 0 4px 14px rgba(34,197,94,0.3);
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 16px 50px; }
+    .head { margin-bottom: 22px; }
+    .head h1 { font-size: 1.5rem; font-weight: 800; }
+    .head p { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px; margin-bottom: 20px;
+    }
+    .stat {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 18px;
+      padding: 18px; backdrop-filter: blur(10px);
+      position: relative; overflow: hidden;
+    }
+    .stat::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--g), transparent);
+    }
+    .stat .ico {
+      width: 36px; height: 36px; border-radius: 10px; margin-bottom: 10px;
+      background: rgba(34,197,94,0.15); color: var(--g);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stat .val { font-size: 1.45rem; font-weight: 800; letter-spacing: 0.5px; }
+    .stat .lbl { font-size: 0.72rem; color: var(--muted); margin-top: 3px; font-weight: 500; }
+    .card {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 18px;
+      padding: 20px; margin-bottom: 14px; backdrop-filter: blur(10px);
+    }
+    .card h2 {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card h2 i { color: var(--g); }
+    .list { list-style: none; }
+    .list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.88rem;
+    }
+    .list li:last-child { border-bottom: none; }
+    .badge {
+      font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+      background: rgba(34,197,94,0.15); color: var(--g3);
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;
+      padding: 12px 18px; border-radius: 12px; border: none; text-decoration: none;
+      background: linear-gradient(135deg, #22c55e, #16a34a); color: #052e16;
+      font-weight: 700; font-family: inherit; font-size: 0.88rem;
+      box-shadow: 0 8px 22px rgba(34,197,94,0.3);
+    }
+    footer { text-align: center; color: var(--muted); font-size: 0.72rem; margin-top: 24px; }
+    footer a { color: var(--g); text-decoration: none; }
+    .dot {
+      display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--g); box-shadow: 0 0 8px var(--g); margin-right: 6px;
+      animation: pulse 1.5s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{ opacity:1;} 50%{ opacity:0.4;} }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">
+      <img src="https://files.catbox.moe/f5lc3u.jpeg" alt="" />
+      <span>Ayantha x MD</span>
+    </div>
+    <div>
+      <a href="/">Pair</a>
+      <a href="/dashboard" class="active">Dash</a>
+      <a href="/admin">Admin</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="head">
+      <h1>📊 Live Dashboard</h1>
+      <p><span class="dot"></span>Real-time pair service status</p>
+    </div>
+
+    <div class="grid">
+      <div class="stat">
+        <div class="ico"><i class="fas fa-server"></i></div>
+        <div class="val" id="status">—</div>
+        <div class="lbl">Service</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fas fa-database"></i></div>
+        <div class="val" id="sessions">—</div>
+        <div class="lbl">Sessions</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fas fa-clock"></i></div>
+        <div class="val" id="uptime">—</div>
+        <div class="lbl">Uptime</div>
+      </div>
+      <div class="stat">
+        <div class="ico"><i class="fas fa-plug"></i></div>
+        <div class="val" id="mongo">—</div>
+        <div class="lbl">MongoDB</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-circle-info"></i> Bot Info</h2>
+      <ul class="list">
+        <li><span>Bot Name</span><span>Ayantha x MD</span></li>
+        <li><span>Owner</span><span>Shashen Dev &lt;/&gt;</span></li>
+        <li><span>Channel</span><a href="https://whatsapp.com/channel/0029Vb8PaR67oQhblNB9b10y" style="color:#4ade80;text-decoration:none;font-weight:600">Open →</a></li>
+        <li><span>API</span><span class="badge">/code</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-star"></i> Free Features</h2>
+      <ul class="list">
+        <li><span>Pair Code Generator</span><span class="badge">FREE</span></li>
+        <li><span>MongoDB Session Save</span><span class="badge">FREE</span></li>
+        <li><span>Public Dashboard</span><span class="badge">FREE</span></li>
+        <li><span>Admin Panel</span><span class="badge">FREE</span></li>
+        <li><span>Bot Auto Connect</span><span class="badge">FREE</span></li>
+      </ul>
+    </div>
+
+    <a class="btn" href="/"><i class="fas fa-bolt"></i> Get Pair Code</a>
+    <footer>Powered by <a href="#">Shashen Dev &lt;/&gt;</a> · 🇱🇰</footer>
+  </div>
+
+  <script>
+    function load() {
+      fetch('/api/stats').then(r => r.json()).then(d => {
+        document.getElementById('status').textContent = d.online ? 'ONLINE' : 'OFF';
+        document.getElementById('sessions').textContent = d.sessions ?? '0';
+        document.getElementById('uptime').textContent = d.uptime || '—';
+        document.getElementById('mongo').textContent = d.mongo ? 'OK' : '—';
+      }).catch(() => {
+        document.getElementById('status').textContent = 'OFF';
+      });
+    }
+    load();
+    setInterval(load, 15000);
+  </script>
+</body>
+</html>

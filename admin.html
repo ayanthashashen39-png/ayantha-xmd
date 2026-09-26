@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="theme-color" content="#020617" />
+  <title>Admin — Ayantha x MD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --g: #22c55e; --g2: #16a34a; --g3: #4ade80;
+      --bg: #020617; --card: rgba(15,23,42,0.8); --stroke: rgba(34,197,94,0.28);
+      --text: #f8fafc; --muted: #94a3b8; --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh; font-family: 'Outfit', system-ui, sans-serif; color: var(--text);
+      background: var(--bg);
+      background-image:
+        radial-gradient(ellipse 70% 45% at 90% 0%, rgba(34,197,94,0.16), transparent 50%),
+        radial-gradient(ellipse 40% 30% at 0% 100%, rgba(16,185,129,0.08), transparent);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 18px; background: rgba(2,6,23,0.8); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(34,197,94,0.18); position: sticky; top: 0; z-index: 30;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--g); object-fit: cover; }
+    .brand span {
+      background: linear-gradient(135deg, #4ade80, #86efac);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    nav a {
+      color: var(--muted); text-decoration: none; font-size: 0.78rem;
+      padding: 7px 14px; border-radius: 999px;
+    }
+    nav a.active {
+      color: #052e16; background: linear-gradient(135deg, var(--g), var(--g2));
+    }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 28px 16px 50px; }
+    h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+    .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+    .glass {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 20px;
+      padding: 22px 18px; margin-bottom: 14px; backdrop-filter: blur(12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+    label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 7px; font-weight: 500; }
+    .field {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+      background: rgba(0,0,0,0.35); border: 1px solid rgba(34,197,94,0.22);
+      border-radius: 14px; padding: 4px 4px 4px 14px;
+    }
+    .field:focus-within { border-color: var(--g); box-shadow: 0 0 0 3px rgba(34,197,94,0.12); }
+    .field i { color: var(--muted); }
+    .field input {
+      flex: 1; border: none; background: transparent; color: var(--text);
+      font-family: inherit; font-size: 1rem; padding: 12px 8px; outline: none;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px; border: none; border-radius: 14px;
+      font-family: inherit; font-weight: 700; cursor: pointer; font-size: 0.92rem;
+      transition: 0.2s;
+    }
+    .btn-main {
+      background: linear-gradient(135deg, #22c55e, #16a34a); color: #052e16;
+      box-shadow: 0 8px 22px rgba(34,197,94,0.3);
+    }
+    .btn-main:hover { filter: brightness(1.05); }
+    .btn-danger {
+      background: rgba(248,113,113,0.1); color: var(--danger);
+      border: 1px solid rgba(248,113,113,0.3); margin-top: 10px;
+    }
+    .btn-sm { width: auto; padding: 7px 14px; font-size: 0.75rem; border-radius: 10px; }
+    .hidden { display: none !important; }
+    .row-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 14px; gap: 10px; flex-wrap: wrap;
+    }
+    .row-top strong { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+    .row-top strong i { color: var(--g); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    td code {
+      font-size: 0.8rem; background: rgba(34,197,94,0.1); color: var(--g3);
+      padding: 3px 8px; border-radius: 6px;
+    }
+    .empty { text-align: center; color: var(--muted); padding: 36px 16px; font-size: 0.9rem; }
+    .empty i { font-size: 2rem; color: rgba(34,197,94,0.3); display: block; margin-bottom: 10px; }
+    .stat-line {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6;
+      padding: 12px; border-radius: 12px; background: rgba(0,0,0,0.25);
+    }
+    .toast {
+      position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(16px);
+      background: linear-gradient(135deg, #14532d, #166534); color: #bbf7d0;
+      padding: 12px 18px; border-radius: 999px; font-size: 0.82rem; font-weight: 600;
+      opacity: 0; transition: 0.3s; z-index: 50; border: 1px solid rgba(34,197,94,0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .login-hero { text-align: center; margin-bottom: 20px; }
+    .login-hero .lock {
+      width: 64px; height: 64px; margin: 0 auto 12px; border-radius: 18px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(22,163,74,0.1));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--g); border: 1px solid rgba(34,197,94,0.3);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">
+      <img src="https://files.catbox.moe/f5lc3u.jpeg" alt="" />
+      <span>Admin Panel</span>
+    </div>
+    <div>
+      <a href="/">Pair</a>
+      <a href="/dashboard">Dash</a>
+      <a href="/admin" class="active">Admin</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div id="loginBox">
+      <div class="login-hero">
+        <div class="lock"><i class="fas fa-shield-halved"></i></div>
+        <h1>Admin Login</h1>
+        <p class="sub">Secure access · Default: <code style="color:#4ade80">shashen123</code></p>
+      </div>
+      <div class="glass">
+        <label>Password</label>
+        <div class="field">
+          <i class="fas fa-key"></i>
+          <input type="password" id="pass" placeholder="Enter admin password" />
+        </div>
+        <button class="btn btn-main" onclick="login()"><i class="fas fa-unlock"></i> Unlock Panel</button>
+      </div>
+    </div>
+
+    <div id="panel" class="hidden">
+      <h1>🛠 Control Center</h1>
+      <p class="sub">Manage pair sessions & service health</p>
+
+      <div class="glass">
+        <div class="row-top">
+          <strong><i class="fas fa-users"></i> Sessions</strong>
+          <button class="btn btn-main btn-sm" onclick="loadSessions()"><i class="fas fa-sync"></i> Refresh</button>
+        </div>
+        <div id="tableWrap">
+          <div class="empty"><i class="fas fa-inbox"></i>Loading sessions...</div>
+        </div>
+      </div>
+
+      <div class="glass">
+        <strong style="font-size:0.95rem;display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <i class="fas fa-chart-line" style="color:var(--g)"></i> Live Stats
+        </strong>
+        <div class="stat-line" id="adminStats">—</div>
+      </div>
+
+      <button class="btn btn-danger" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const KEY = 'ayantha_admin_token';
+
+    function toast(m) {
+      const t = document.getElementById('toast');
+      t.textContent = m; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function login() {
+      fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: document.getElementById('pass').value })
+      }).then(r => r.json()).then(d => {
+        if (d.ok && d.token) {
+          localStorage.setItem(KEY, d.token);
+          showPanel();
+          loadSessions();
+          toast('Welcome back');
+        } else toast(d.error || 'Wrong password');
+      }).catch(() => toast('Server error'));
+    }
+
+    function logout() {
+      localStorage.removeItem(KEY);
+      document.getElementById('panel').classList.add('hidden');
+      document.getElementById('loginBox').classList.remove('hidden');
+    }
+
+    function showPanel() {
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('panel').classList.remove('hidden');
+    }
+
+    function loadSessions() {
+      fetch('/api/admin/sessions', { headers: { 'x-admin-token': localStorage.getItem(KEY) } })
+        .then(r => r.json())
+        .then(d => {
+          if (!d.ok) { logout(); return; }
+          const wrap = document.getElementById('tableWrap');
+          if (!d.sessions?.length) {
+            wrap.innerHTML = '<div class="empty"><i class="fas fa-inbox"></i>No sessions yet</div>';
+          } else {
+            let html = '<table><thead><tr><th>Number</th><th>Added</th><th></th></tr></thead><tbody>';
+            d.sessions.forEach(s => {
+              const num = (s.number || '').split('@')[0];
+              const date = s.added_at ? new Date(s.added_at).toLocaleString() : '—';
+              html += `<tr>
+                <td><code>${num}</code></td>
+                <td style="color:var(--muted)">${date}</td>
+                <td><button class="btn btn-danger btn-sm" style="margin:0;width:auto" onclick="delSession('${s.number}')">Delete</button></td>
+              </tr>`;
+            });
+            html += '</tbody></table>';
+            wrap.innerHTML = html;
+          }
+          document.getElementById('adminStats').innerHTML =
+            `📦 Sessions: <b style="color:#4ade80">${d.sessions?.length || 0}</b> &nbsp;·&nbsp; ` +
+            `⚡ Active pair: <b style="color:#4ade80">${d.active || 0}</b> &nbsp;·&nbsp; ` +
+            `⏱ ${d.uptime || '—'} &nbsp;·&nbsp; ` +
+            `🗄 Mongo: <b style="color:#4ade80">${d.mongo ? 'OK' : 'OFF'}</b>`;
+        }).catch(() => toast('Failed to load'));
+    }
+
+    function delSession(number) {
+      if (!confirm('Delete this session permanently?')) return;
+      fetch('/api/admin/sessions', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': localStorage.getItem(KEY) },
+        body: JSON.stringify({ number })
+      }).then(r => r.json()).then(d => {
+        if (d.ok) { toast('Session deleted'); loadSessions(); }
+        else toast(d.error || 'Failed');
+      });
+    }
+
+    if (localStorage.getItem(KEY)) { showPanel(); loadSessions(); }
+    document.getElementById('pass').addEventListener('keydown', e => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>
